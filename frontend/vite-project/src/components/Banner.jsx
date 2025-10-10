@@ -3,7 +3,7 @@ import book2 from "../assets/book2.jpg";
 
 function Banner() {
   return (
-    <div className="pt-[5.5rem] max-w-screen-2xl container mx-auto md:px-20 px-4 my-8 flex flex-col md:flex-row items-center justify-between">
+    <div className="pt-24 md:pt-28 max-w-screen-2xl container mx-auto md:px-20 px-4 my-8 flex flex-col md:flex-row items-center justify-between">
       <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-12 order-1 md:order-2">
         <img
           src={book2}

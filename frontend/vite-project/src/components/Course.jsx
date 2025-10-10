@@ -14,13 +14,13 @@ function CourseCard({ course }) {
 }
 
 // Courses Page (fetches and shows all courses/books)
-function Courses() {
+function Course() {
   const [book, setBook] = useState([]);
 
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get("http://localhost:4001/book");
+        const res = await axios.get("http://localhost:4000/book");
         console.log(res.data);
         setBook(res.data);
       } catch (error) {
@@ -35,14 +35,14 @@ function Courses() {
       <div className="mt-28 items-center justify-center text-center">
         <h1 className="text-2xl md:text-4xl">
           We're delighted to have you{" "}
-          <span className="text-pink-300">Here!</span>
+          <span className="text-blue-200">Here!</span>
         </h1>
         <p className="mt-12">
           Our bookstore offers engaging courses designed to enhance reading
           habits, improve comprehension, and explore literature deeply.
         </p>
         <Link to="/">
-          <button className="mt-6 bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-600 duration-300">
+          <button className="mt-6 bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-500 duration-300">
             Back
           </button>
         </Link>
@@ -57,4 +57,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default Course;

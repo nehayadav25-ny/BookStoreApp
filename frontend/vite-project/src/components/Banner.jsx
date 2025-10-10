@@ -4,8 +4,6 @@ import book2 from "../assets/book2.jpg";
 function Banner() {
   return (
     <div className="pt-[5.5rem] max-w-screen-2xl container mx-auto md:px-20 px-4 my-8 flex flex-col md:flex-row items-center justify-between">
-      
-      {/* Image Section - Mobile me pehle dikhana hai */}
       <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-12 order-1 md:order-2">
         <img
           src={book2}
@@ -18,10 +16,10 @@ function Banner() {
       <div className="w-full md:w-1/2 space-y-4 order-2 md:order-1">
         <h1 className="text-3xl md:text-4xl font-bold leading-snug">
           Welcome! Read, learn and dream something new{" "}
-          <span className="text-pink-300">everyday with books!!!</span>
+          <span className="text-blue-400">everyday with books!!!</span>
         </h1>
 
-        <p className="text-base md:text-lg text-indigo-300 leading-relaxed">
+        <p className="text-base md:text-lg text-blue-200 leading-relaxed">
           Books are more than just pages; they are windows to endless worlds.
           Each story inspires, teaches, and motivates us to dream bigger, think
           deeper, and grow wiser every single day!
@@ -52,7 +50,26 @@ function Banner() {
           />
         </label>
 
-        <button className="btn mt-3 btn-secondary px-6 py-2">Get Started</button>
+        <button
+          className="
+  mt-3
+  bg-gradient-to-r from-blue-700 to-blue-500
+  text-white
+  font-semibold
+  px-4 py-2
+  rounded-md
+  shadow-md
+  hover:from-blue-600 hover:to-blue-400
+  transition
+  duration-200
+  transform
+  hover:-translate-y-0.5
+  hover:scale-105
+  focus:outline-none
+"
+        >
+          Get Started
+        </button>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ function Course() {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/book`);
+        const res = await axios.get("https://bookstoreapp-b.onrender.com");
         console.log(res.data);
         setBook(res.data);
       } catch (error) {

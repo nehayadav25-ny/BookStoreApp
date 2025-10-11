@@ -8,7 +8,8 @@
     "build": "npx vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind": "tailwindcss"
+    "tailwind": "tailwindcss",
+    "prepare": "chmod +x node_modules/.bin/vite"
   },
   "dependencies": {
     "axios": "^1.12.2",

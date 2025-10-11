@@ -4,14 +4,14 @@ import Cards from "./Cards";
 import { Link } from "react-router-dom";
 
 // Single Course Card (for one course item)
-// function CourseCard({ course }) {
-//   return (
-//     <div>
-//       <h2>{course?.title}</h2>
-//       <p>{course?.description}</p>
-//     </div>
-//   );
-// }
+function CourseCard({ course }) {
+  return (
+    <div>
+      <h2>{course?.title}</h2>
+      <p>{course?.description}</p>
+    </div>
+  );
+}
 
 // Courses Page (fetches and shows all courses/books)
 function Course() {
@@ -20,7 +20,7 @@ function Course() {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get("http://localhost:4001/book");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/book`);
         console.log(res.data);
         setBook(res.data);
       } catch (error) {
@@ -31,31 +31,29 @@ function Course() {
   }, []);
 
   return (
-    <>
-      <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
-        <div className="mt-28 items-center justify-center text-center">
-          <h1 className="text-2xl md:text-4xl">
-            We're delighted to have you{" "}
-            <span className="text-blue-200">Here!</span>
-          </h1>
-          <p className="mt-12">
-            Our bookstore offers engaging courses designed to enhance reading
-            habits, improve comprehension, and explore literature deeply.
-          </p>
-          <Link to="/">
-            <button className="mt-6 bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-500 duration-300">
-              Back
-            </button>
-          </Link>
-        </div>
-
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-4">
-          {book.map((item) => (
-            <Cards key={item.id} item={item} />
-          ))}
-        </div>
+    <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
+      <div className="mt-28 items-center justify-center text-center">
+        <h1 className="text-2xl md:text-4xl">
+          We're delighted to have you{" "}
+          <span className="text-blue-200">Here!</span>
+        </h1>
+        <p className="mt-12">
+          Our bookstore offers engaging courses designed to enhance reading
+          habits, improve comprehension, and explore literature deeply.
+        </p>
+        <Link to="/">
+          <button className="mt-6 bg-blue-300 text-white px-4 py-2 rounded-md hover:bg-blue-500 duration-300">
+            Back
+          </button>
+        </Link>
       </div>
-    </>
+
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-4">
+        {book.map((item) => (
+          <Cards key={item.id} item={item} />
+        ))}
+      </div>
+    </div>
   );
 }
 

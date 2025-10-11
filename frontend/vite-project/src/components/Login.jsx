@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-
 function Login() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,77 +15,95 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-
-    try {
-      const res = await axios.post("http://localhost:4000/user/login", userInfo);
-      if (res.data) {
-        toast.success("Logged in Successfully ✅");
-        localStorage.setItem("Users", JSON.stringify(res.data.user));
-        navigate("/", { replace: true });
-        window.location.reload();
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed ❌");
-    }
+    await axios
+      .post("http://localhost:4001/user/login", userInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success("Loggedin Successfully");
+          document.getElementById("my_modal_3").close();
+          setTimeout(() => {
+            window.location.reload();
+            localStorage.setItem("Users", JSON.stringify(res.data.user));
+          }, 1000);
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err);
+          toast.error("Error: " + err.response.data.message);
+          setTimeout(() => {}, 2000);
+        }
+      });
   };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-black px-6 py-12">
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-700">
-        <h2 className="text-3xl font-bold text-blue-400 text-center mb-6">Login to Your Account</h2>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Email */}
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-200 mb-1">Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              autoComplete="username"
-              {...register("email", { required: true })}
-              className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.email && (
-              <span className="text-xs text-red-500 mt-1">This field is required</span>
-            )}
-          </div>
-
-          {/* Password */}
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-200 mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              {...register("password", { required: true })}
-              className="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            {errors.password && (
-              <span className="text-xs text-red-500 mt-1">This field is required</span>
-            )}
-          </div>
-
-          {/* Buttons / Links */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-6">
-            <button
-              type="submit"
-              className="w-full sm:w-auto py-2.5 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-blue-400 text-white font-semibold shadow-md hover:from-blue-500 hover:to-blue-300 transition-all duration-300"
+    <div>
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <form onSubmit={handleSubmit(onSubmit)} method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <Link
+              to="/"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => document.getElementById("my_modal_3").close()}
             >
-              Login
-            </button>
+              ✕
+            </Link>
 
-            <p className="text-gray-300 text-sm text-center sm:text-left">
-              Not registered?{" "}
-              <Link
-                to="/signup"
-                className="underline text-blue-400 hover:text-blue-300 transition-colors duration-300"
-              >
-                Signup
-              </Link>
-            </p>
-          </div>
-        </form>
-      </div>
+            <h3 className="font-bold text-lg">Login</h3>
+            {/* Email */}
+            <div className="mt-4 space-y-2">
+              <span>Email</span>
+              <br />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-80 px-3 py-1 border rounded-md outline-none"
+                {...register("email", { required: true })}
+              />
+              <br />
+              {errors.email && (
+                <span className="text-sm text-red-500">
+                  This field is required
+                </span>
+              )}
+            </div>
+            {/* password */}
+            <div className="mt-4 space-y-2">
+              <span>Password</span>
+              <br />
+              <input
+                type="password"
+                placeholder="Enter your password"
+                className="w-80 px-3 py-1 border rounded-md outline-none"
+                {...register("password", { required: true })}
+              />
+              <br />
+              {errors.password && (
+                <span className="text-sm text-red-500">
+                  This field is required
+                </span>
+              )}
+            </div>
+
+            {/* Button */}
+            <div className="flex justify-around mt-6">
+              <button className="bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">
+                Login
+              </button>
+              <p>
+                Not registered?{" "}
+                <Link
+                  to="/signup"
+                  className="underline text-blue-500 cursor-pointer"
+                >
+                  Signup
+                </Link>{" "}
+              </p>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 }

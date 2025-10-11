@@ -20,7 +20,7 @@ function Contact() {
     console.log("Submitting form data:", formData);
 
     try {
-      const res = await axios.post("http://localhost:4000/contact", formData, {
+      const res = await axios.post("https://bookstoreapp-b.onrender.com", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
